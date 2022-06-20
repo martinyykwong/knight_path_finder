@@ -57,8 +57,17 @@ class KnightPathFinder
     end
 
     def trace_path_back(end_node)
+
+        if end_node == nil #for edge cases where end node does not exist (e.g. invalid board position)
+            raise "invalid target position"
+        end
+
         move_path = [end_node.value]
         parent_node = end_node.parent
+
+        if parent_node == nil #for edge case where target position is same as starting position
+            return move_path
+        end
 
         until parent_node.parent == nil
             move_path << parent_node.value
@@ -68,4 +77,9 @@ class KnightPathFinder
         move_path.reverse
     end
 
+end
+
+if $PROGRAM_NAME == __FILE__
+    knight_path_finder1 = KnightPathFinder.new([1,0])
+    p knight_path_finder1.find_path([6,6])
 end
